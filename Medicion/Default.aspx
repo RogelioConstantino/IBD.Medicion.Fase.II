@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head id="Head1" runat="server">
-	<title>Inicio de sesión- Sistema de Gestión de Medición - Iberdrola fnirnfioer</title>
+	<title>Inicio de sesión- Sistema de Gestión de Medición - Iberdrola</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       
@@ -30,7 +30,7 @@
 		<div class="container" >
     		<div class="col-md-12 col-xs-12 centered">
 	            <div class="panel-heading">
-                    <h2 class="text-center">Sistema de Gestión de Medición----</h2>                
+                    <h2 class="text-center">Sistema de Gestión de Medición</h2>                
 	                <h4 class="text-center">LA NUEVA ENERGÍA DE MÉXICO</h4>
 	                <p class="text-center">Iniciar sesión</p>
 	            </div>

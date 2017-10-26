@@ -41,7 +41,7 @@
                <div class="form-group col-xs-12 col-md-2">
                 <label class="control-label">Convenio</label>
                 <div class="selectContainer">
-                    <asp:DropDownList ID="cmbConvenio" runat="server" CssClass="form-control" OnSelectedIndexChanged="cmbConvenio_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:DropDownList ID="cmbConvenio" runat="server" CssClass="form-control" OnSelectedIndexChanged="cmbConvenio_SelectedIndexChanged" AutoPostBack="false">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
                     </asp:DropDownList>
                 </div>

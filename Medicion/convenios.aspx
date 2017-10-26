@@ -13,8 +13,8 @@
     <script src="js/sweetalert2.min.js" type="text/javascript"></script>
     <script src="js/sweetalert2.js" type="text/javascript"></script>
     <script src="js/sweetalert2.common.js" type="text/javascript"></script>
-    <cc1:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
-    </cc1:ToolkitScriptManager>
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
 
     <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server" OnLoad="UpdatePanel1_Load">
 
