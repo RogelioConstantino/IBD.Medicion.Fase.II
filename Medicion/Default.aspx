@@ -30,7 +30,7 @@
 		<div class="container" >
     		<div class="col-md-12 col-xs-12 centered">
 	            <div class="panel-heading">
-                    <h2 class="text-center">Sistema de Gestión de Medición</h2>                
+                    <h2 class="text-center">Sistema de Gestión de Medición----</h2>                
 	                <h4 class="text-center">LA NUEVA ENERGÍA DE MÉXICO</h4>
 	                <p class="text-center">Iniciar sesión</p>
 	            </div>
