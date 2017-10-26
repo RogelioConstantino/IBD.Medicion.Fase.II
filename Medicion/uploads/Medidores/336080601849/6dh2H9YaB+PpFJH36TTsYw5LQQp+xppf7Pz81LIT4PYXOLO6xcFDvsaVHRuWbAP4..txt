@@ -1,0 +1,88 @@
+Miércoles 25: Instalación MV IRIS.
+Diciembre 31/2014: Documentación IRIS, Compras, Migración.
+
+COMPRAS:
+
+Esatus particular de Estatus:
+Si la carga detecta estatus no identificado en catálogo de Estatus detiene la carga y usuario debe reportar para indicar problema, ésto debido a que la lógica 
+de pizarrón y secuencia de compra requiere validación de estatus.
+
+LOGIN SICOP:
+Desde login Plataforma SIGEN.
+
+
+Evidencia: Pizarrón y Descarga de Reporte.
+
+Pizarrón: Solicitudes Delegadas y Centralizadas sin Licitación o con Licitacón sin Pedido.
+	  ó
+	  Contrato Marco sin Pedido.
+
+
+	Filtro: 
+	Filtro con Planta, Criticidad y Tipo de COmpra.	
+
+Licitación: (independiente de SN y Pedido. Editable sólo si SN es Null, sino, se asigna lo mismo que SN)
+	incluir campo Importe
+	Incluir checkbox "CM".
+	Al activar bandera CM se incluye detalle de CM por posición en pantalla de licitación.
+	Si mi licitación es CM debe ser obligatorio la asignación de #CM y al menos 1 Posición de CM.
+	
+
+
+Contratos Marcos:
+	Fase 2: Desarrollo de carga de archivo de CM con posición.
+	Licitación
+
+
+No aplica "Agregar" Posiciones de Solicitud.
+
+
+Proyectos 2015:
+
+Se requiere saber si los 1000 son por contrato de interconexión, si si, no habría problema, si no, si habría problema.
+	Nueva Planta IEM es otro contrato de Interconexión al IEM actual
+
+Desaparece banqueo apartir de contratos cerrados en Agosto 2014.
+Se cotizará Simulador de Facturación.
+En nuevos contrtos se dará la subasta de Demanda a sutrir, con cobro de Proteo.
+
+
+
+Catálogos por cargar antes de la evidencia:
+ Estatus SN
+ Estatus Pedido
+ Estatus Licitacion
+ Tipo de Compra
+ Grupo de Compra
+ Tipo Material
+
+
+
+2015.02.23
+Escenario1:
+Carga-->Trata como "Pedido Sin Licitación" a todos los pedidos.
+Carga-->Pedido con licitación además utiliza misma lógica actual para "Pedidos Con Licitación" pero agrega iCodPedido al registro de HisLicitacionSNPosicion.
+Carga-->Sigue creando Registros de ITEO&PA para cada iNumLicitación distinto que encuentre.
+Licitaciones-->agregar campo "iNumPedido + Descripción Pedido" en spread de Solcitudes.
+Licitaciones-->Continúa funcionalidad de "Agregar"
+Pedido Sin Licitación-->Cambiar Nombre a "Pedido"
+Pedido Sin Licitación-->Agregar filtro "Clase de Pedido"
+Pedido Sin Licitación-->Incluir columna "Licitación" en Spread
+Pedido Sin Licitación-->Incluir campi "Licitación"
+Pedido Sin Licitación-->Incluir sección "Gestión de Compra" (Iteo&PA)
+Pedido COn Licitación-->Desactivar Opción de Menú.
+
+Escenario2:
+Carga-->Identificar por Clase Pedido si es "Pedido Con Licitación" o "Pedido Sin Licitación" 
+        (proceso carga o directamente en archivo) y asignar un iNumLicitación default,
+Carga-->Pedido con licitación además utiliza misma lógica actual para "Pedidos Con Licitación" 
+        pero agrega iCodPedido al registro de HisLicitacionSNPosicion.
+Carga-->Pedido con licitación además utiliza misma lógica actual para "Pedidos Con Licitación" pero agrega iCodPedido al registro de HisLicitacionSNPosicion
+
+Escenario3:
+Carga-->Si Licitación = 10, no es licitación.
+Carga-->Pedido con licitación además utiliza misma lógica actual para "Pedidos Con Licitación" pero agrega iCodPedido al registro de HisLicitacionSNPosicion
+
+
+
+
