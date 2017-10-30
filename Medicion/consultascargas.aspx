@@ -36,7 +36,7 @@
             <div class="form-group col-xs-12 col-md-4">
                 <label class="control-label">Gestor de Medición</label>
                 <div class="selectContainer">
-                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" AutoPostBack="false">
+                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" OnSelectedIndexChanged="cboGestorMedicion_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
                     </asp:DropDownList>
                 </div>

@@ -58,6 +58,8 @@ namespace Medicion
                 cmbGMed.DataTextField = "GestorMedicion";
                 cmbGMed.DataValueField = "IdGestor";
                 cmbGMed.DataBind();
+                cmbGMed.Items.Add("--Seleccione un gestor--");
+                cmbGMed.SelectedValue = "--Seleccione un gestor--";
                 cmbGMed2.DataSource = dtCommunication;
                 cmbGMed2.DataTextField = "GestorMedicion";
                 cmbGMed2.DataValueField = "IdGestor";
@@ -88,6 +90,8 @@ namespace Medicion
                 cmbGComercial2.DataTextField = "GestorComercial";
                 cmbGComercial2.DataValueField = "IdGestor";
                 cmbGComercial2.DataBind();
+                cmbGComercial2.Items.Add("--Seleccione un gestor--");
+                cmbGComercial2.SelectedValue = "--Seleccione un gestor--";
                 cmbGComer2.DataSource = dtCommunication;
                 cmbGComer2.DataTextField = "GestorComercial";
                 cmbGComer2.DataValueField = "IdGestor";

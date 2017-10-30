@@ -20,9 +20,11 @@ namespace Medicion
             clsElectricMeters oClsElectricMeters = new clsElectricMeters();
             try {
                 if (!IsPostBack) {
-                    
+                    FillGestorMedicion();
+
                     DataTable dtAllGroups;
                     oClsElectricMeters.intActive = 1;
+                    oClsElectricMeters.IdGMedicion = 0;
                     dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
                     cmbGroup.DataSource = dtAllGroups;
                     cmbGroup.DataTextField = "Grupo";
@@ -30,7 +32,7 @@ namespace Medicion
                     cmbGroup.DataBind();
                    // CargaDDL();
                     //CargarCentral();
-                    FillGestorMedicion();
+                  
                     cmbGroup.Items.Add("-- TODOS --");
                     cmbGroup.SelectedValue = "-- TODOS --";
 
@@ -340,22 +342,33 @@ namespace Medicion
 
         public void CargarGrupo()
         {
-            clsCentral clsBussinesCentral = new clsCentral();
-            DataTable dtG;
-            dtG = clsBussinesCentral.GetAllCentrales();
-            //Session["dtG"] = dtG;
-            // dtG.Rows.Add(0, "0","-- TODOS --");
-            DataSet ds = new DataSet(); ds.Tables.Add(dtG.Copy());
-            ds.Tables[0].DefaultView.Sort = "Descripción";
-            //cmbCentral.DataSource = ds;
-            //cmbCentral.DataTextField = "Descripción";
-            //cmbCentral.DataValueField = "IdCentral";
-            //cmbCentral.DataBind();
+            clsElectricMeters oClsElectricMeters = new clsElectricMeters();
+            string strIdGMedicion = cboGestorMedicion.Items[cboGestorMedicion.SelectedIndex].Value;
+            DataTable dtAllGroups;
+            if (strIdGMedicion == "-- TODOS --")
+            {oClsElectricMeters.IdGMedicion = 0;
+            }
+            else
+            {
+                oClsElectricMeters.IdGMedicion = Convert.ToInt32(strIdGMedicion);
+            }
+            oClsElectricMeters.intActive = 1;
 
-            //cmbCentral.Items.Add("-- TODOS --");
-            //cmbCentral.SelectedValue = "-- TODOS --";
+            dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
+            cmbGroup.DataSource = dtAllGroups;
+            cmbGroup.DataTextField = "Grupo";
+            cmbGroup.DataValueField = "IdGrupo";
+            cmbGroup.DataBind();
+            // CargaDDL();
+            //CargarCentral();
+
+            cmbGroup.Items.Add("-- TODOS --");
+            cmbGroup.SelectedValue = "-- TODOS --";
         }
 
-
+        protected void cboGestorMedicion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarGrupo();
+        }
     }
 }

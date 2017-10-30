@@ -102,11 +102,11 @@ namespace Medicion.Class.Business
             {
                 ConnectionDB con = new ConnectionDB();
                 //string query = string.Format("select IdGrupo, grupo  from  grupos g where IdGrupo in (Select distinct IdGrupo from PuntosCarga  where Activo=@intActive ) order by 2  ");
-                string query = string.Format("select distinct IdGrupo, grupo  from  grupos where Activo=1 order by 2 ");
+                string query = string.Format("select distinct IdGrupo,upper( grupo +' -- '+ +'('+gt.Cve+')') grupo  from  grupos gp join Gestores gt  on gp.IdGMedicion = gt.IdGestor where gp.Activo=1 and (gp.IdGMedicion = @IdGMedicion or 0 = @IdGMedicion)  order by 2 ");
 
                 SqlParameter[] sqlParameters = new SqlParameter[1];
-                sqlParameters[0] = new SqlParameter("@intActive", SqlDbType.SmallInt);
-                sqlParameters[0].Value = Convert.ToString(intActive);
+                sqlParameters[0] = new SqlParameter("@IdGMedicion", SqlDbType.Int);
+                sqlParameters[0].Value = IdGMedicion;
 
                 con.dbConnection();
                 dtAllGroup = con.executeSelectQuery(query, sqlParameters);

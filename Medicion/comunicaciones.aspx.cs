@@ -347,6 +347,7 @@ namespace Medicion
                 btnAddCommunnication.Visible = (strIdUsuario == strGestrorMedicion);
                 //Button1.Visible = (strIdUsuario == strGestrorMedicion);
                 ddlGestorMedicion.Enabled = ((string)Session["Rol"] == "1");
+                btnAddCommunnication.Visible = ((String)Session["Rol"] == "5");
 
             }
             catch (Exception ex)

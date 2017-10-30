@@ -14,6 +14,7 @@ namespace Medicion.Class.Business
         public string strLoadingCharges { get; set; }
         public string strRPU { get; set; }
         public Int16 intActive { get; set; }
+        public int IdGMedicion { get; set; }
         public DataTable dtElectricMeters { get; set; }
     }
 }
