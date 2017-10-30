@@ -22,7 +22,15 @@ namespace Medicion.Class.Business
 
             return dtAllG;
         }
- 
+        public DataTable GetAllGroups2()
+        {
+            Class.Catalogos.CatGroup clsCatGroup = new Class.Catalogos.CatGroup();
+            clsCatGroup.Activo = 1;
+            dtAllG = clsCatGroup.GetAllGroup();
+
+            return dtAllG;
+        }
+
         public StringBuilder ReturnHTMLGroup( DataTable dtG) 
         {
             StringBuilder strG = new StringBuilder();

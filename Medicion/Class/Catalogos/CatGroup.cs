@@ -41,6 +41,29 @@ namespace Medicion.Class.Catalogos
 
             return AllGroups;
         }
+        public DataTable GetAllGroup()
+        {
+            String FullName = string.Empty;
+
+            try
+            {
+                string query = string.Format("select  IdGrupo Id , Grupo [Descripción], convert(varchar(10), FechaInicioOperaciones,126 ) as  [Inicio de Operaciones], FechaCreacion  [Fecha de Creación]  from Grupos where Activo = @Activo Order By Grupo");
+                SqlParameter[] sqlParameters = new SqlParameter[1];
+                sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
+                sqlParameters[0].Value = Convert.ToString(Activo);
+                con.dbConnection();
+                AllGroups = con.executeSelectQuery(query, sqlParameters);
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "GetRPU";
+                clsError.LogWrite();
+            }
+
+            return AllGroups;
+        }
         public DataTable ExistsGroup() {
             
             

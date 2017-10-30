@@ -52,7 +52,7 @@ namespace Medicion
                         {
                             FullName = Convert.ToString(row["FirstName"]) + " " + Convert.ToString(row["LastName"]);
                             strEmailusr = Convert.ToString(row["Email"]);
-                            strIdUsuario = Convert.ToString(row["IdUsuario"]);
+                            strIdUsuario = Convert.ToString(row["IdGestor"]);
                             strIdRol = Convert.ToString(row["IdRol"]);
                         }
 

@@ -19,7 +19,7 @@ namespace Medicion.Class
             {
 
 
-                string query = string.Format("select IdUsuario, Nombre FirstName,ApellidoPaterno LastName , Email, IdRol from Usuarios where (usuario = @Email )  AND Password =@Password "); // or Email like @Email) "); //
+                string query = string.Format("select IdUsuario, Nombre FirstName,ApellidoPaterno LastName , Email, IdRol,IdGestor from Usuarios where (usuario = @Email )  AND Password =@Password "); // or Email like @Email) "); //
                 SqlParameter[] sqlParameters = new SqlParameter[2];
                 sqlParameters[0] = new SqlParameter("@Email", SqlDbType.VarChar);
                 sqlParameters[0].Value = Convert.ToString(UserName);

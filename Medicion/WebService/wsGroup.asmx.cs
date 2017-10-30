@@ -72,41 +72,41 @@ namespace Medicion.WebService
 
 
 
-        //[WebMethod]
-        //public CascadingDropDownNameValue[] getGrupos(string knownCategoryValues)
-        //{
-        //     clsGrupo  oCls = new clsGrupo();
-        //    DataTable dt;
-        //    StringBuilder strHTML = new StringBuilder();
+        [WebMethod]
+        public CascadingDropDownNameValue[] getGrupos(string knownCategoryValues)
+        {
+            clsGrupo oCls = new clsGrupo();
+            DataTable dt;
+            StringBuilder strHTML = new StringBuilder();
 
-        //    List<CascadingDropDownNameValue> values = new List<CascadingDropDownNameValue>();
+            List<CascadingDropDownNameValue> values = new List<CascadingDropDownNameValue>();
 
-        //    dt = oCls.GetAllGroups();
-        //    if (dt == null)
-        //    {
-        //        return values.ToArray();
-        //    }
-        //    else
-        //    {
-        //        if (dt.Rows.Count > 0)
-        //        {
-        //            foreach (DataRow row in dt.Rows)
-        //            {
-        //                values.Add(new CascadingDropDownNameValue
-        //                {
-        //                    name = row[1].ToString(),
-        //                    value = row[0].ToString()
-        //                });
-        //            }
-        //            return values.ToArray();
-        //        }
-        //        else
-        //        {
-        //            return values.ToArray();
-        //        }
-        //    }
+            dt = oCls.GetAllGroups2();
+            if (dt == null)
+            {
+                return values.ToArray();
+            }
+            else
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        values.Add(new CascadingDropDownNameValue
+                        {
+                            name = row[1].ToString(),
+                            value = row[0].ToString()
+                        });
+                    }
+                    return values.ToArray();
+                }
+                else
+                {
+                    return values.ToArray();
+                }
+            }
 
-        //}
+        }
 
 
 
