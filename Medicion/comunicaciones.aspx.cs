@@ -16,6 +16,8 @@ namespace Medicion
     public partial class comunicaciones : System.Web.UI.Page
     {
         DataTable dtGetRPUData;
+        DataTable dtGetComentarios;
+
         LogErrorMedicion clsError = new LogErrorMedicion();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,6 +71,7 @@ namespace Medicion
                         oClsElectricMeters.strRPU = strRpu;
                         oClsElectricMeters.intActive = 1;
                         dtGetRPUData = oClsElectricMeters.SearchRPU(strRpu);
+                        dtGetComentarios = oClsElectricMeters.BuscarComentario(strRpu,2);
                     }
 
                     string strOpc = Request["opc"];
@@ -95,7 +98,10 @@ namespace Medicion
                     FillGestorMedicion();
                     FillGestorComercial();
 
-
+                    foreach (DataRow row in dtGetComentarios.Rows)
+                    {
+                        txtComentComunicacion.Text = Convert.ToString(row["Comentario"]);
+                    }
                     foreach (DataRow row in dtGetRPUData.Rows)
                     {
                         txtGroup.Text = Convert.ToString(row["Grupo"]);
@@ -344,10 +350,10 @@ namespace Medicion
                 string strIdUsuario = (string)Session["IdUsuario"];
                 string strGestrorMedicion = ddlGestorMedicion.Items[ddlGestorMedicion.SelectedIndex].Value;
 
-                btnAddCommunnication.Visible = (strIdUsuario == strGestrorMedicion);
+                btnAddCommunnication.Visible = (strIdUsuario == strGestrorMedicion || (String)Session["Rol"] == "5");
                 //Button1.Visible = (strIdUsuario == strGestrorMedicion);
                 ddlGestorMedicion.Enabled = ((string)Session["Rol"] == "1");
-                btnAddCommunnication.Visible = ((String)Session["Rol"] == "5");
+                //btnAddCommunnication.Visible = ();
 
             }
             catch (Exception ex)
@@ -425,7 +431,7 @@ namespace Medicion
                     }
                     else
                     {
-                        Boolean bRes = oclsCommunication.UpdateRUP(strRPU, strEstatus, strGestrorComercial, strGestrorMedicion,strchprelacion, strIdUsuario);
+                        Boolean bRes = oclsCommunication.UpdateRUP(strRPU, strEstatus, strGestrorComercial, strGestrorMedicion,strchprelacion, strIdUsuario,txtComentComunicacion.Text,2);
                     
                         string strchkPM1 = (chkPM1.Checked ? "2" : "0");
                         string strchkPM2 = (chkPM2.Checked ? "2" : "0");

@@ -163,7 +163,8 @@
                 <div class="form-group col-xs-12 col-xs-12">
                     <label class="control-label">Gestor Medición</label>
                     <div class="selectContainer">
-                        <asp:DropDownList ID="cmbGMed" runat="server" CssClass="form-control">
+                        <asp:DropDownList ID="cmbGMed" runat="server" 
+                            AutoPostBack="false" CssClass="form-control">
                             <asp:ListItem Text="" Value=""></asp:ListItem>
                         </asp:DropDownList>
                     </div>
@@ -300,9 +301,9 @@
                 $("#btnCloseNewx").click();
             });
             $("#btnCloseDeletex").on("click", function (event) {
-                event.prevenDefault();
-                $('#frmnew').trigger("reset");
-                $('#frmnew')[0].reset();
+               // event.prevenDefault();
+                //$('#frmnew').trigger("reset");
+               // $('#frmnew')[0].reset();
             });
             $("#btnCloseDelete").click(function () {
                 //document.location.reload();
@@ -365,6 +366,26 @@
 
                 var TextComer = ddlComer.options[ddlComer.selectedIndex].text;
                 var ValueComer = ddlComer.options[ddlComer.selectedIndex].value;
+                console.log(TextMed);
+                console.log(TextComer);
+
+                if (TextMed == "--Seleccione un gestor--") {
+                    swal(
+                        '',
+                        'Debe seleccionar un gestor de medición',
+                        'warning'
+                    );
+
+                    return ;
+                }
+                if (TextComer == "--Seleccione un gestor--") {
+                    swal(
+                        '',
+                        'Debe seleccionar un gestor comercial',
+                        'warning'
+                    );
+                    return ;
+                }
                 $.ajax({
                     type: "POST",
                     url: "./WebService/wsGroup.asmx/NewGroup",
@@ -542,6 +563,23 @@
                 var ddlComer2 = document.getElementById("<%=cmbGComer2.ClientID%>");
                
                 var ValueComer2 = ddlComer2.options[ddlComer2.selectedIndex].value;
+                console.log(ValueComer2);
+                if (ValueMed2 = "--Seleccione un gestor--") {
+                    swal(
+                        '',
+                        'Debe seleccionar un gestor de medición',
+                        'warning'
+                    );
+                    
+                    return false;
+                } else if (ValueComer2 = "--Seleccione un gestor--") {
+                    swal(
+                        '',
+                        'Debe seleccionar un gestor comercial',
+                        'warning'
+                    );
+                    return false;
+                }
                 $.ajax({
                     type: "POST",
                     url: "./WebService/wsGroup.asmx/UpdateGroup",

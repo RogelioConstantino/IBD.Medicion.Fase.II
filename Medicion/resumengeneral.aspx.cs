@@ -32,10 +32,23 @@ namespace Medicion
         StringBuilder strHTMLElectric = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
+            clsElectricMeters oClsElectricMeters = new clsElectricMeters();
             if (!IsPostBack) {
 
                 FillGestorMedicion();
+                DataTable dtAllGroups;
+                oClsElectricMeters.intActive = 1;
+                oClsElectricMeters.IdGMedicion = 0;
+                dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
+                ddl_Grupos.DataSource = dtAllGroups;
+                ddl_Grupos.DataTextField = "Grupo";
+                ddl_Grupos.DataValueField = "IdGrupo";
+                ddl_Grupos.DataBind();
+                // CargaDDL();
+                //CargarCentral();
 
+                ddl_Grupos.Items.Add("-- TODOS --");
+                ddl_Grupos.SelectedValue = "-- TODOS --";
                 //buscar();
 
                 //   System.Data.DataTable dtGR = new System.Data.DataTable();
@@ -865,7 +878,32 @@ System.Data.DataTable dtGR = new System.Data.DataTable();
             }
         }
 
+        public void CargarGrupo()
+        {
+            clsElectricMeters oClsElectricMeters = new clsElectricMeters();
+            string strIdGMedicion = cboGestorMedicion.Items[cboGestorMedicion.SelectedIndex].Value;
+            DataTable dtAllGroups;
+            if (strIdGMedicion == "-- TODOS --")
+            {
+                oClsElectricMeters.IdGMedicion = 0;
+            }
+            else
+            {
+                oClsElectricMeters.IdGMedicion = Convert.ToInt32(strIdGMedicion);
+            }
+            oClsElectricMeters.intActive = 1;
 
+            dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
+            ddl_Grupos.DataSource = dtAllGroups;
+            ddl_Grupos.DataTextField = "Grupo";
+            ddl_Grupos.DataValueField = "IdGrupo";
+            ddl_Grupos.DataBind();
+            // CargaDDL();
+            //CargarCentral();
+
+            ddl_Grupos.Items.Add("-- TODOS --");
+            ddl_Grupos.SelectedValue = "-- TODOS --";
+        }
 
         private void FillGestorMedicion()
         {
@@ -890,6 +928,9 @@ System.Data.DataTable dtGR = new System.Data.DataTable();
             }
         }
 
-
+        protected void cboGestorMedicion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarGrupo();
+        }
     }
 }

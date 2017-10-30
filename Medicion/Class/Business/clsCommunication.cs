@@ -517,7 +517,7 @@ namespace Medicion.Class.Business
             return bMsg;
         }
         
-        public Boolean UpdateRUP(String strRPU, String intEStatus, String intGestorMedicion, String intGestorComunicaciones,int conPrelacion, string strIdUsuario)
+        public Boolean UpdateRUP(String strRPU, String intEStatus, String intGestorMedicion, String intGestorComunicaciones,int conPrelacion, string strIdUsuario,string strComenTMedidor,int TipoComentario)
         {
             ConnectionDB con = new ConnectionDB();
             Boolean bMsg = true;
@@ -525,7 +525,7 @@ namespace Medicion.Class.Business
             try
             {
                 string query = string.Format("spUpdate_Rup");
-                SqlParameter[] sqlParameters = new SqlParameter[6];
+                SqlParameter[] sqlParameters = new SqlParameter[8];
 
                 sqlParameters[0] = new SqlParameter("@chrIdEstatus", SqlDbType.Int);
                 sqlParameters[0].Value = intEStatus;
@@ -542,7 +542,11 @@ namespace Medicion.Class.Business
                 sqlParameters[4].Value = conPrelacion;
                 sqlParameters[5] = new SqlParameter("@IdUsuario", SqlDbType.NVarChar);
                 sqlParameters[5].Value = strIdUsuario;
-                
+                sqlParameters[6] = new SqlParameter("@Comentario", SqlDbType.VarChar);
+                sqlParameters[6].Value = strComenTMedidor;
+                sqlParameters[7] = new SqlParameter("@TipoComentario", SqlDbType.Int);
+                sqlParameters[7].Value = TipoComentario;
+
                 con.dbConnection();
                 dtData = con.executeStoreProcedure(query, sqlParameters);
             }

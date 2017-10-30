@@ -12,6 +12,7 @@ namespace Medicion.Class.Business
     public class clsElectricMeters : clsPropertiesElectricMeters
     {
         DataTable dtAllGroup;
+        DataTable TableComentarios;
         DataTable dtGroup;
         DataTable dtSerarchRPU;
         DataTable dtHistoricRPU;
@@ -164,6 +165,33 @@ namespace Medicion.Class.Business
 
             }
             return dtSerarchRPU;
+        }
+        public DataTable BuscarComentario(string strRPU,int TipoComentario)
+        {
+
+            try
+            {
+                ConnectionDB con = new ConnectionDB();
+                string query = string.Format("spBuscarComentario");
+                //query = "spBuscarRPU";
+                SqlParameter[] sqlParameters = new SqlParameter[2];
+                sqlParameters[0] = new SqlParameter("@TipoComentario", SqlDbType.Int);
+                sqlParameters[0].Value = TipoComentario;
+                sqlParameters[1] = new SqlParameter("@strRPU", SqlDbType.VarChar);
+                sqlParameters[1].Value = Convert.ToString(strRPU);
+                con.dbConnection();
+                TableComentarios = con.executeStoreProcedure(query, sqlParameters);
+
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "SearchComentario";
+                clsError.LogWrite();
+
+            }
+            return TableComentarios;
         }
         public DataTable SearchRPU(string strRPU)
         {

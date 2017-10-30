@@ -40,15 +40,6 @@ namespace Medicion {
         protected global::System.Web.UI.WebControls.DropDownList ddl_Grupos;
         
         /// <summary>
-        /// Control cddl_Grupos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown cddl_Grupos;
-        
-        /// <summary>
         /// Control ddl_Central.
         /// </summary>
         /// <remarks>

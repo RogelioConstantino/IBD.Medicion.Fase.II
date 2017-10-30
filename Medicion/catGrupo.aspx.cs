@@ -21,7 +21,7 @@ namespace Medicion
         {
             if (Request["__EVENTTARGET"] == "NewGrupo" &&
             Request["__EVENTARGUMENT"] == "")
-            { FillGestorComercial2(); }
+            {  }
 
             try 
             {

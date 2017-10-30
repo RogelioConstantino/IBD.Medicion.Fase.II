@@ -29,7 +29,7 @@
                             <div class="form-group col-lg-12 col-md-3">
                                 <label class="control-label">Gestor de Medición</label>
                                 <div class="selectContainer">
-                                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" AutoPostBack="false">
+                                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" OnSelectedIndexChanged="cboGestorMedicion_SelectedIndexChanged" AutoPostBack="true">
                                         <asp:ListItem Text="" Value=""></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
@@ -41,9 +41,9 @@
                                 <label class="control-label">Grupo</label>                        
                                 <asp:DropDownList ID="ddl_Grupos" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
-                                <cc1:CascadingDropDown ID="cddl_Grupos" TargetControlID="ddl_Grupos" PromptText="Seleccione un Grupo"
+                           <%--     <cc1:CascadingDropDown ID="cddl_Grupos" TargetControlID="ddl_Grupos" PromptText="Seleccione un Grupo"
                             PromptValue="" ServicePath="WebService/wsGroup.asmx" ServiceMethod="getGrupos" runat="server"
-                            Category="Id" LoadingText="Cargando..." /> 
+                            Category="Id" LoadingText="Cargando..." /> --%>
                             </div>
                         </div>
                                           

@@ -186,7 +186,9 @@ namespace Medicion.Class.Catalogos
             Boolean msg = true;
             try 
             {
-                string query = string.Format("Update Grupos SET Grupo = upper(@Grupo), FechaInicioOperaciones = @InicioOperaciones, IdGMedicion = @IdGMedicion, IdGComercial = @IdGComercial where Activo = @Activo and IdGrupo= @IdGrupo");
+                //string query = string.Format("Update Grupos SET Grupo = upper(@Grupo), FechaInicioOperaciones = @InicioOperaciones, IdGMedicion = @IdGMedicion, IdGComercial = @IdGComercial where Activo = @Activo and IdGrupo= @IdGrupo");
+                string query = string.Format("spUpdateGrupo");
+
                 SqlParameter[] sqlParameters = new SqlParameter[6];
                 sqlParameters[0] = new SqlParameter("@Grupo", SqlDbType.NVarChar);
                 sqlParameters[0].Value = Convert.ToString(Grupo);
@@ -196,10 +198,10 @@ namespace Medicion.Class.Catalogos
 
 
                 sqlParameters[2] = new SqlParameter("@Activo", SqlDbType.SmallInt);
-                sqlParameters[2].Value = Convert.ToString(Activo);
+                sqlParameters[2].Value = Convert.ToInt32(Activo);
 
                 sqlParameters[3] = new SqlParameter("@IdGrupo", SqlDbType.Int);
-                sqlParameters[3].Value = Convert.ToString(idGrupo);
+                sqlParameters[3].Value = Convert.ToInt32(idGrupo);
 
                 sqlParameters[4] = new SqlParameter("@IdGMedicion", SqlDbType.Int);
                 sqlParameters[4].Value = IdMed;
@@ -207,7 +209,7 @@ namespace Medicion.Class.Catalogos
                 sqlParameters[5].Value = IdComer;
 
                 con.dbConnection();
-                msg = con.executeUpdateQuery(query, sqlParameters);  
+                 con.executeStoreProcedure(query, sqlParameters);  
             }
             catch (Exception ex)
             {
