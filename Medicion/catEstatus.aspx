@@ -152,7 +152,7 @@
             }
         });
         $(document).ready(function () {
-            $('#myTable').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 8 });
+            $('#myTable').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 13 });
             //New Status
             
             $("#btnAddStatus").click(function () {

@@ -26,7 +26,7 @@ namespace Medicion.Class.Catalogos
             String FullName = string.Empty;
             try
             {
-                string query = string.Format("select IdEstatus, Cve, Estatus, FechaCreacion, FechaCreacion [Fecha de Creación] from [PuntosCargaEstatus]  where Activo = @Activo Order By Estatus");
+                string query = string.Format("select IdEstatus, Cve, Estatus, FechaCreacion from [PuntosCargaEstatus]  where Activo = @Activo Order By Estatus");
                 SqlParameter[] sqlParameters = new SqlParameter[1];
                 sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
                 sqlParameters[0].Value = Convert.ToString(Activo);

@@ -314,7 +314,7 @@
                 //document.location.reload();
                 $("#btnCloseEditX").click();
             });
-            $('#myTable').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 6 });
+            $('#myTable').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 13 });
 
             $("#btnAddGroup").click(function () {
 

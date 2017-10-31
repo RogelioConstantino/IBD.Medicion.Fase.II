@@ -705,7 +705,7 @@ namespace Medicion.Class.Business
                                                 "            , z.IdDIVISION, d.Division  [División] " +
                                                 "            , pc.IdZONA, z.Zona " +
                                                 "            , pc.FechaCreacion AS[Fecha Alta] " +
-                                                "            , e.Estatus , pc.IdEstatus, pc.IdGestorComercial, pc.IdGestorMedicion " +
+                                                "            , e.Estatus , pc.IdEstatus, pc.IdGestorComercial, pc.IdGestorMedicion,pc.ConPrelacion [Con Prelación] " +
                                                 "         FROM PuntosCarga pc with(nolock) " +
                                                 "         JOIN Grupos g ON pc.IdGrupo = g.idGrupo " +
                                                 "         JOIN Tarifas t on pc.IdTarifa = t.IdTarifa " +

@@ -85,6 +85,9 @@ namespace Medicion
 
             System.Data.DataTable dtGR = new System.Data.DataTable();
             clsGeneralReport oclsGeneralReport = new clsGeneralReport();
+            if (strGestor == "-- TODOS --") strGestor = "0";
+
+            if (strGrupo == "-- TODOS --") strGrupo = "0";
             dtGR = oclsGeneralReport.GetGeneralReport("1"
                                                     , ""
                                                     , toggleConvenios.Checked ? "0" : "1"
@@ -731,12 +734,13 @@ namespace Medicion
 
                     var rngCapacidadRPU = rngTableAll.Range("C2:C" + (j +1)); // The address is relative to rngTable (NOT the worksheet)
                     rngCapacidadRPU.Style.NumberFormat.Format = "###";
+                    var rngCapacidadRPU2 = rngTableAll.Range("L2:L" + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
+                    rngCapacidadRPU2.Style.NumberFormat.Format = "###";
 
-                    
                     if (!toggleConvenios.Checked)
                     {
-                        var rngConvenios = rngTableAll.Range("L2:" + ColumnLetter(intConvenios-1) + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
-                            rngConvenios.Style.NumberFormat.Format = "###";
+                        var rngConvenios = rngTableAll.Range("M2:" + ColumnLetter(intConvenios-1) + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
+                            rngConvenios.Style.NumberFormat.Format = "#,##0.00";
                     }
 
 
@@ -857,9 +861,10 @@ namespace Medicion
             String strGestor = cboGestorMedicion.Items[cboGestorMedicion.SelectedIndex].Value;
 
             if (strGestor == "-- TODOS --" ) strGestor ="0" ;
-            
 
-System.Data.DataTable dtGR = new System.Data.DataTable();
+            if (strGrupo == "-- TODOS --") strGrupo = "0";
+
+            System.Data.DataTable dtGR = new System.Data.DataTable();
             clsGeneralReport oclsGeneralReport = new clsGeneralReport();
             dtGR = oclsGeneralReport.GetGeneralReport("1"
                                                     , ""

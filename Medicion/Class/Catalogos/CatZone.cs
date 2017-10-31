@@ -26,7 +26,7 @@ namespace Medicion.Class.Catalogos
             
             try
             {
-                string query = string.Format("select d.IdDivision, d.Division [División], z.IdZona Id, z.cveZona Clave, z.Zona, z.Observaciones, z.FechaCreacion [Fecha de Creación] from zonas z join divisiones d on d.IdDivision = z.IdDivision  where z.Activo = @Activo Order By z.Zona");
+                string query = string.Format("select d.IdDivision, d.Division [División], z.IdZona Id, z.cveZona Clave, z.Zona, z.Observaciones from zonas z join divisiones d on d.IdDivision = z.IdDivision  where z.Activo = @Activo Order By z.Zona");
                 SqlParameter[] sqlParameters = new SqlParameter[1];
                 sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
                 sqlParameters[0].Value = Convert.ToString(intActivo);
@@ -47,7 +47,7 @@ namespace Medicion.Class.Catalogos
 
             try 
             {
-                string query = string.Format("select d.IdDivision, d.Division  [División], z.IdZona Id, z.cveZona Clave, z.Zona, z.Observaciones, z.FechaCreacion [Fecha de Creación] from zonas z join divisiones d on d.IdDivision = z.IdDivision  where z.Activo = @Activo and z.IdDivision=@strDivision and (  z.IdZona = @strZone )  Order By z.Zona");   //z.CveZona = @strCveZone  or 
+                string query = string.Format("select d.IdDivision, d.Division  [División], z.IdZona Id, z.cveZona Clave, z.Zona, z.Observaciones from zonas z join divisiones d on d.IdDivision = z.IdDivision  where z.Activo = @Activo and z.IdDivision=@strDivision and (  z.IdZona = @strZone )  Order By z.Zona");   //z.CveZona = @strCveZone  or 
                 SqlParameter[] sqlParameters = new SqlParameter[4];
                 sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
                 sqlParameters[0].Value = Convert.ToString(intActivo);

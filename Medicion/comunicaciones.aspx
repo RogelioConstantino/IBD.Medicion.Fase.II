@@ -592,7 +592,9 @@
                     </div>
                     <div class="col-xs-2">
                         <!-- Indicates a successful or positive action -->
-                        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" cssclass="btn btn-primary btn-sm btn-block" Text="Regresar" />
+
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
+
                         <%--<asp:Button type="button" id="Button2"   runat="server" OnClick="btnBack_Click" class="btn btn-primary btn-sm btn-block" Text="Regresar"/>--%>
                     </div>
                 </div>

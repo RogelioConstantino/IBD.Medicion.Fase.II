@@ -120,8 +120,8 @@
 	                                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success btn-sm btn-block" Text="Guardar" OnClick="btnSave_Click" />
                                     </div>    
                                     <div class="col-xs-2">  	       
-                                        <asp:Button id="btnregresar2"  runat="server" OnClick="btnregresar2_Click" cssclass="btn btn-primary btn-sm btn-block" Text="Regresar" /> 
-           
+ 
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
                                     </div>
                                  </div>	
     <div class="clearfix"></div>
@@ -660,7 +660,7 @@
 	                                    <asp:Button ID="btnAddZone" runat="server" CssClass="btn btn-success btn-sm btn-block" Text="Guardar" OnClick="btnSave_Click" />
                                     </div>    
                                     <div class="col-xs-2"> 
-                                        <asp:Button id="btnregresar1" runat="server" OnClick="btnregresar1_Click" CssClass="btn btn-primary btn-sm btn-block" Text="Regresar" />
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
                                        
                                     </div>
                                  </div>		                

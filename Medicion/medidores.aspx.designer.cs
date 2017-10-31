@@ -139,15 +139,6 @@ namespace Medicion {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// Control btnregresar2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnregresar2;
-        
-        /// <summary>
         /// Control chkPM1.
         /// </summary>
         /// <remarks>
@@ -695,15 +686,6 @@ namespace Medicion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddZone;
-        
-        /// <summary>
-        /// Control btnregresar1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnregresar1;
         
         /// <summary>
         /// Control Div1.

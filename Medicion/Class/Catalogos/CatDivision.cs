@@ -26,7 +26,7 @@ namespace Medicion.Class.Catalogos
 
             try
             {
-                string query = string.Format("SELECT IdDivision Id, convert(varchar(2),CveDivision) Clave, Division [Descripción], FechaCreacion [Fecha de Creación] FROM Divisiones WHERE Activo = @Activo ORDER BY Division");
+                string query = string.Format("SELECT IdDivision Id, convert(varchar(2),CveDivision) Clave, Division [Descripción] FROM Divisiones WHERE Activo = @Activo ORDER BY Division");
                 SqlParameter[] sqlParameters = new SqlParameter[1];
                 sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
                 sqlParameters[0].Value = Convert.ToString(Activo);
