@@ -20,12 +20,14 @@ namespace Medicion.Class.Catalogos
             
             try
             {
-                string query = string.Format("SELECT IdConvenio Id , Convenio, c.Descripcion [Descripción], IdCentral,  ce.Descripcion [Estatus] , c.IdEstatus, c.FechaCreacion [Fecha de Creación],  c.Activo " +
+                string query = string.Format(" select c.IdConvenio Id , Convenio, c.Descripcion [Descripción], IdCentral, count(IdPuntoCarga) [Núm de Cargas],sum(pcc.carga) [Carga Total] , ce.Descripcion [Estatus], c.IdEstatus,   c.Activo  " +
                                             "   FROM Convenios c " +
                                             "   JOIN ConveniosEstatus ce " +
                                             "     ON c.IdEstatus = ce.IdEstatus " +
+                                            "   join PuntoCargaPorConvenio pcc on c.IdConvenio = pcc.IdConvenio" +
                                             "  WHERE c.activo = 1 and c.IdCentral = @IdCentral " +
-                                            "  ORDER BY [Fecha de Creación] desc ");
+                                            "  group by c.IdConvenio  , Convenio, c.Descripcion , IdCentral , ce.Descripcion ,  c.IdEstatus,   c.Activo " +
+                                            "  ORDER BY 1 desc ");
 
                 SqlParameter[] sqlParameters = new SqlParameter[1];
                 sqlParameters[0] = new SqlParameter("@IdCentral", SqlDbType.SmallInt);

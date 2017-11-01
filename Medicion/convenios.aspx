@@ -77,8 +77,10 @@
                     <Columns>
                         <asp:BoundField HeaderText="Convenio" DataField="Convenio" />
                         <asp:BoundField HeaderText="Descripción" DataField="Descripción" />
+                        <asp:BoundField HeaderText="Núm de Cargas" DataField="Núm de Cargas" />
+                        <asp:BoundField HeaderText="Carga Total" DataField="Carga Total" />
                         <asp:BoundField HeaderText="Estatus" DataField="Estatus" />
-                        <asp:BoundField HeaderText="Fecha Creación" DataField="Fecha de Creación" />
+                        <%--<asp:BoundField HeaderText="Fecha Creación" DataField="Fecha de Creación" />--%>
                         <asp:TemplateField>
 
                             <ItemTemplate>
