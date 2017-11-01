@@ -113,7 +113,7 @@ namespace Medicion.Class.Business
                              || column.ColumnName.ToUpper() == "ENTREGADO"
                              || column.ColumnName.ToUpper() == "MEDIDOR RESPALDO"
                              || column.ColumnName.ToUpper() == "ENTREGADO RESPALDO"
-                             || column.ColumnName.ToUpper() == "CARTA DE SECION RECIBIDA"
+                             || column.ColumnName.ToUpper() == "CARTA DE CESIÓN RECIBIDA"
                              || column.ColumnName.ToUpper() == "MEDIDOR INSTALADO"
 
                              || column.ColumnName.ToUpper() == "MEDIDOR CON PERFIL"

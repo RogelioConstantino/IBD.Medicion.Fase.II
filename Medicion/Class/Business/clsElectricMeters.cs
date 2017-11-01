@@ -12,6 +12,7 @@ namespace Medicion.Class.Business
     public class clsElectricMeters : clsPropertiesElectricMeters
     {
         DataTable dtAllGroup;
+        DataTable TableComentarios;
         DataTable dtGroup;
         DataTable dtSerarchRPU;
         DataTable dtHistoricRPU;
@@ -164,6 +165,33 @@ namespace Medicion.Class.Business
 
             }
             return dtSerarchRPU;
+        }
+        public DataTable BuscarComentario(string strRPU,int TipoComentario)
+        {
+
+            try
+            {
+                ConnectionDB con = new ConnectionDB();
+                string query = string.Format("spBuscarComentario");
+                //query = "spBuscarRPU";
+                SqlParameter[] sqlParameters = new SqlParameter[2];
+                sqlParameters[0] = new SqlParameter("@TipoComentario", SqlDbType.Int);
+                sqlParameters[0].Value = TipoComentario;
+                sqlParameters[1] = new SqlParameter("@strRPU", SqlDbType.VarChar);
+                sqlParameters[1].Value = Convert.ToString(strRPU);
+                con.dbConnection();
+                TableComentarios = con.executeStoreProcedure(query, sqlParameters);
+
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "SearchComentario";
+                clsError.LogWrite();
+
+            }
+            return TableComentarios;
         }
         public DataTable SearchRPU(string strRPU)
         {
@@ -677,7 +705,7 @@ namespace Medicion.Class.Business
                                                 "            , z.IdDIVISION, d.Division  [División] " +
                                                 "            , pc.IdZONA, z.Zona " +
                                                 "            , pc.FechaCreacion AS[Fecha Alta] " +
-                                                "            , e.Estatus , pc.IdEstatus, pc.IdGestorComercial, pc.IdGestorMedicion " +
+                                                "            , e.Estatus , pc.IdEstatus, pc.IdGestorComercial, pc.IdGestorMedicion,pc.ConPrelacion [Con Prelación] " +
                                                 "         FROM PuntosCarga pc with(nolock) " +
                                                 "         JOIN Grupos g ON pc.IdGrupo = g.idGrupo " +
                                                 "         JOIN Tarifas t on pc.IdTarifa = t.IdTarifa " +

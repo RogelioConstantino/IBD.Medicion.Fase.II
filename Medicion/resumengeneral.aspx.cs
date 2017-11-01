@@ -32,10 +32,23 @@ namespace Medicion
         StringBuilder strHTMLElectric = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
+            clsElectricMeters oClsElectricMeters = new clsElectricMeters();
             if (!IsPostBack) {
 
                 FillGestorMedicion();
+                DataTable dtAllGroups;
+                oClsElectricMeters.intActive = 1;
+                oClsElectricMeters.IdGMedicion = 0;
+                dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
+                ddl_Grupos.DataSource = dtAllGroups;
+                ddl_Grupos.DataTextField = "Grupo";
+                ddl_Grupos.DataValueField = "IdGrupo";
+                ddl_Grupos.DataBind();
+                // CargaDDL();
+                //CargarCentral();
 
+                ddl_Grupos.Items.Add("-- TODOS --");
+                ddl_Grupos.SelectedValue = "-- TODOS --";
                 //buscar();
 
                 //   System.Data.DataTable dtGR = new System.Data.DataTable();
@@ -72,6 +85,9 @@ namespace Medicion
 
             System.Data.DataTable dtGR = new System.Data.DataTable();
             clsGeneralReport oclsGeneralReport = new clsGeneralReport();
+            if (strGestor == "-- TODOS --") strGestor = "0";
+
+            if (strGrupo == "-- TODOS --") strGrupo = "0";
             dtGR = oclsGeneralReport.GetGeneralReport("1"
                                                     , ""
                                                     , toggleConvenios.Checked ? "0" : "1"
@@ -718,12 +734,13 @@ namespace Medicion
 
                     var rngCapacidadRPU = rngTableAll.Range("C2:C" + (j +1)); // The address is relative to rngTable (NOT the worksheet)
                     rngCapacidadRPU.Style.NumberFormat.Format = "###";
+                    var rngCapacidadRPU2 = rngTableAll.Range("L2:L" + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
+                    rngCapacidadRPU2.Style.NumberFormat.Format = "###";
 
-                    
                     if (!toggleConvenios.Checked)
                     {
-                        var rngConvenios = rngTableAll.Range("L2:" + ColumnLetter(intConvenios-1) + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
-                            rngConvenios.Style.NumberFormat.Format = "###";
+                        var rngConvenios = rngTableAll.Range("M2:" + ColumnLetter(intConvenios-1) + (j + 1)); // The address is relative to rngTable (NOT the worksheet)
+                            rngConvenios.Style.NumberFormat.Format = "#,##0.00";
                     }
 
 
@@ -844,9 +861,10 @@ namespace Medicion
             String strGestor = cboGestorMedicion.Items[cboGestorMedicion.SelectedIndex].Value;
 
             if (strGestor == "-- TODOS --" ) strGestor ="0" ;
-            
 
-System.Data.DataTable dtGR = new System.Data.DataTable();
+            if (strGrupo == "-- TODOS --") strGrupo = "0";
+
+            System.Data.DataTable dtGR = new System.Data.DataTable();
             clsGeneralReport oclsGeneralReport = new clsGeneralReport();
             dtGR = oclsGeneralReport.GetGeneralReport("1"
                                                     , ""
@@ -865,7 +883,32 @@ System.Data.DataTable dtGR = new System.Data.DataTable();
             }
         }
 
+        public void CargarGrupo()
+        {
+            clsElectricMeters oClsElectricMeters = new clsElectricMeters();
+            string strIdGMedicion = cboGestorMedicion.Items[cboGestorMedicion.SelectedIndex].Value;
+            DataTable dtAllGroups;
+            if (strIdGMedicion == "-- TODOS --")
+            {
+                oClsElectricMeters.IdGMedicion = 0;
+            }
+            else
+            {
+                oClsElectricMeters.IdGMedicion = Convert.ToInt32(strIdGMedicion);
+            }
+            oClsElectricMeters.intActive = 1;
 
+            dtAllGroups = oClsElectricMeters.GetAllDistinctGroup();
+            ddl_Grupos.DataSource = dtAllGroups;
+            ddl_Grupos.DataTextField = "Grupo";
+            ddl_Grupos.DataValueField = "IdGrupo";
+            ddl_Grupos.DataBind();
+            // CargaDDL();
+            //CargarCentral();
+
+            ddl_Grupos.Items.Add("-- TODOS --");
+            ddl_Grupos.SelectedValue = "-- TODOS --";
+        }
 
         private void FillGestorMedicion()
         {
@@ -890,6 +933,9 @@ System.Data.DataTable dtGR = new System.Data.DataTable();
             }
         }
 
-
+        protected void cboGestorMedicion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarGrupo();
+        }
     }
 }

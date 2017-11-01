@@ -79,12 +79,20 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
+                      
                           <div class="form-group">
-                        <div class="form-group col-xs-12 col-md-4">                         
-                            <asp:CheckBox type="checkbox" ID="ChkPrelacion"  runat="server" />
+                                 <div class="form-group col-xs-12 col-md-10">
+		                            <label for="estatus">Observación Medidor-punto de carga</label>
+		                            <asp:TextBox TextMode="multiline" ToolTip="Observación MAX:999 caracteres" runat="server" class="form-control text-uppercase" rows="2" id="txtComentMedicdor" MaxLength="999"></asp:TextBox>                            
+		                        </div>
+                        <div class="form-group col-xs-12 col-md-2">  
+                            <br />
                             <label class="control-label">Prelación</label>
+
+                            <asp:CheckBox type="checkbox" ID="ChkPrelacion"  runat="server" />
                         </div>
                     </div>
+                        
                     </div>
 
         </div>
@@ -112,8 +120,8 @@
 	                                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success btn-sm btn-block" Text="Guardar" OnClick="btnSave_Click" />
                                     </div>    
                                     <div class="col-xs-2">  	       
-                                        <asp:Button id="btnregresar2"  runat="server" OnClick="btnregresar2_Click" cssclass="btn btn-primary btn-sm btn-block" Text="Regresar" /> 
-           
+ 
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
                                     </div>
                                  </div>	
     <div class="clearfix"></div>
@@ -652,7 +660,7 @@
 	                                    <asp:Button ID="btnAddZone" runat="server" CssClass="btn btn-success btn-sm btn-block" Text="Guardar" OnClick="btnSave_Click" />
                                     </div>    
                                     <div class="col-xs-2"> 
-                                        <asp:Button id="btnregresar1" runat="server" OnClick="btnregresar1_Click" CssClass="btn btn-primary btn-sm btn-block" Text="Regresar" />
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
                                        
                                     </div>
                                  </div>		                

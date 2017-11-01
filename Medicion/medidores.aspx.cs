@@ -17,6 +17,7 @@ namespace Medicion
     {
         LogErrorMedicion clsError = new LogErrorMedicion();
         DataTable dtGetRPUData;
+        DataTable dtGetComentarios;
         string strRpu = null;
         Class.Encrypt oclsEncrypt = new Class.Encrypt();
         Class.Business.clsElectricMeters oClsElectricMeters = new Class.Business.clsElectricMeters();
@@ -61,6 +62,7 @@ namespace Medicion
                         oClsElectricMeters.strRPU = strRpu;
                         oClsElectricMeters.intActive = 1;
                         dtGetRPUData = oClsElectricMeters.SearchRPU(strRpu);
+                        dtGetComentarios = oClsElectricMeters.BuscarComentario(strRpu, 1);
 
                         string strOpc = Request["opc"];
                         if (!string.IsNullOrEmpty(strOpc))
@@ -80,7 +82,10 @@ namespace Medicion
                         FillEstatus();
                         FillGestorMedicion();
                         FillGestorComercial();
-                        
+                        foreach (DataRow row in dtGetComentarios.Rows)
+                        {
+                            txtComentMedicdor.Text = Convert.ToString(row["Comentario"]);
+                        }
                         foreach (DataRow row in dtGetRPUData.Rows)
                         {
                             txtGroup.Text = Convert.ToString(row["Grupo"]);
@@ -724,7 +729,7 @@ namespace Medicion
                     }
                     else
                     {
-                        Boolean bRes = oclsCommunication.UpdateRUP(strRPU, strEstatus, strGestrorComercial, strGestrorMedicion,strchprelacion,  strIdUsuario);
+                        Boolean bRes = oclsCommunication.UpdateRUP(strRPU, strEstatus, strGestrorComercial, strGestrorMedicion,strchprelacion,  strIdUsuario,txtComentMedicdor.Text,1);
 
                         string strchkPM1 = (chkPM1.Checked ? "2" : "0");
                         string strchkPM2 = (chkPM2.Checked ? "2" : "0");

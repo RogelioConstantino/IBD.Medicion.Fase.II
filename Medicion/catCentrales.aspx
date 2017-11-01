@@ -4,76 +4,199 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentPlaceHolder1" runat="server">
-        
-    <ol class="breadcrumb breadcrumb-verde" style="color:#454545;">
-      <li>Catálogos</li>
-      <li>Centrales</li>
-    </ol>
-    
-    <h4  style=" text-align:center; color:#427314"> Catálogo de Centrales</h4>
-
-	<div class="col-xs-12 col-md-12 text-right">
-    <p>
-        <button type="button" class="btn btn-warning" onclick="limpiar()"  data-toggle="modal" data-placement="top" title="Nuevo" data-target="#NewCentralModal">
-                Agregar &nbsp; &nbsp;<span class='glyphicon glyphicon-plus'></span>                
-        </button>        
-        </p>
-    </div> 
-    
-    <div class="clearfix"></div>
-	
-    <div class="col-xs-12 col-xd-12">
-        <div class="table-responsive" runat="server">          
-            <table id="mytable" class="table table-striped table-hover table-condensed">
-                <asp:PlaceHolder ID="DBDataPlaceHolder" runat="server">
-                     <link href="css/sweetalert2.min.css" rel="stylesheet" />
+    <link href="css/sweetalert2.min.css" rel="stylesheet" />
     <script src="js/sweetalert2.min.js" type="text/javascript"></script>
     <script src="js/sweetalert2.js" type="text/javascript"></script>
     <script src="js/sweetalert2.common.js" type="text/javascript"></script>
-    <script src="js/jquery.min.js"></script>
-                </asp:PlaceHolder>  
-           
-                </table>          
-        </div> 
+
+
+    <style type="text/css">
+        .ShowHideButton {
+            border: solid 1px #404040;
+            font-family: Courier New;
+            background-color: #808080;
+            cursor:move;
+        }
+    </style>
+    <script type="text/javascript">
+        function ToggleVisiblity(ShowHideButton, GridPanel) {
+            var GridPanel = self.document.getElementById(GridPanel);
+            if (GridPanel.style.display == 'none') {
+                ShowHideButton.innerText = '-';
+                GridPanel.style.display = 'block';
+            }
+            else {
+                ShowHideButton.innerText = '+';
+                GridPanel.style.display = 'none';
+            }
+        }
+
+    </script>
+
+
+  <%--  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+    <ol class="breadcrumb breadcrumb-verde" style="color: #454545;">
+        <li>Catálogos</li>
+        <li>Centrales</li>
+    </ol>
+
+    <h4 style="text-align: center; color: #427314">Catálogo de Centrales</h4>
+
+    <div class="col-xs-12 col-md-12 text-right">
+        <p>
+            <button type="button" class="btn btn-warning" onclick="limpiar()" data-toggle="modal" data-placement="top" title="Nuevo" data-target="#NewCentralModal">
+                Agregar &nbsp; &nbsp;<span class='glyphicon glyphicon-plus'></span>
+            </button>
+        </p>
     </div>
 
     <div class="clearfix"></div>
-    
+<%--    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>--%>
+
+
+
+        
+
+    <div class="col-xs-12 col-xd-12">
+        <div class="table-responsive" runat="server">
+            <table id="mytable" class="table table-striped table-hover table-condensed">
+                <asp:PlaceHolder ID="DBDataPlaceHolder" runat="server"></asp:PlaceHolder>
+
+            </table>
+               <asp:GridView runat="server" ID="GridView1"  CssClass="table  table-striped table-hover " OnRowDataBound="GridView1_RowDataBound" BorderStyle="None"  BorderColor="White" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" DataKeyNames="IdCentral">
+                  <Columns >
+                      <asp:TemplateField HeaderText="Central">
+                          <ItemTemplate>
+                              <a href="#">
+                              <asp:Label runat="server" ID="btnShowHide" Text="+"
+                                  CssClass="" />&nbsp;</a>
+                              
+                    <asp:Label runat="server" ID="lblName" Font-Bold="true"
+                        Text='<%# DataBinder.Eval(Container.DataItem, "Código")%>'>
+                    </asp:Label><br>
+
+                              <asp:Panel runat="server" ID="pnlGrid" CssClass="" Style="display: none;width:100%; margin-left: 5px;">
+                                  <asp:GridView runat="server" ID="GridView2" CssClass="table  table-striped table-hover " OnRowDataBound="GridView2_RowDataBound" BorderColor="White"  AutoGenerateColumns="false" DataKeyNames="IdConvenio">
+                                        <Columns >
+                      <asp:TemplateField HeaderText="Convenio">
+                          <ItemTemplate>
+                                 <a href="#">
+                              <asp:Label runat="server" ID="btnShowHide2" Text="+"
+                                  CssClass="" />&nbsp;</a>
+                    <asp:Label runat="server" ID="lblName2" Font-Bold="true"
+                        Text='<%# DataBinder.Eval(Container.DataItem, "Convenio")%>'>
+                    </asp:Label><br>
+
+                              <asp:Panel runat="server" ID="pnlGrid2" CssClas="panel " Style="display: none;width:100%; margin-left: 5px;">
+                                  <asp:GridView runat="server" ID="GridView3" CssClass="table  table-striped table-hover " BorderStyle="None" BorderColor="White" AutoGenerateColumns="true">
+                                  </asp:GridView>
+                              </asp:Panel>
+                          </ItemTemplate>
+                      </asp:TemplateField>
+                  </Columns>
+                                      <Columns>
+                      <asp:BoundField DataField="Num de Cargas" HeaderText="Num de Cargas"  Visible="true"/>
+                  </Columns>
+                                           <Columns>
+                      <asp:BoundField DataField="Carga total" HeaderText="Carga total"  Visible="true"/>
+                  </Columns>
+                                        <Columns>
+                      <asp:BoundField DataField="Estatus" HeaderText="Estatus"  Visible="true"/>
+                  </Columns>
+                                  </asp:GridView>
+                              </asp:Panel>
+                          </ItemTemplate>
+                      </asp:TemplateField>
+                  </Columns>
+                  <Columns>
+                      <asp:BoundField DataField="carga" HeaderText="Carga"  Visible="true"/>
+                  </Columns>
+                 <Columns>
+                      <asp:TemplateField HeaderText="Editar">
+
+                            <ItemTemplate>
+                                <asp:ImageButton ID="btnEditar" OnClick="btnEditar_Click" runat="server" ImageUrl="~/images/edit.png"  Width="25px" Height="25px" ImageAlign="Middle"
+                                    CausesValidation="false"  />
+                              
+                            </ItemTemplate>
+                      
+                        </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Eliminar">
+
+                            <ItemTemplate >
+                                <asp:ImageButton ID="btnEliminar" OnClick="btnEliminar_Click" runat="server" ImageUrl="~/images/wswsw.png" Width="25px" Height="25px" ImageAlign="Middle"
+                                    CausesValidation="false"  />
+                              
+                            </ItemTemplate>
+                      
+                        </asp:TemplateField>
+                 </Columns>
+
+              </asp:GridView>
+        </div>
+
+
+
+    </div>
+
+         <%--   </ContentTemplate>
+
+    </asp:UpdatePanel>--%>
+
+    <div class="clearfix"></div>
+
     <div class="col-md-12 text-center">
         <ul class="pagination pull-right" id="myPager"></ul>
-    </div> 
-        
+    </div>
+
+
+
+
+
+    </div>
+   
+           
     <!---- EDIT --->
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    
+    <div class="modal fade bs-example-modal-sm" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header btn-primary">
-                    <button type="button" id="btnCloseEditx"  class="close" data-dismiss="modal"> 
-                        <span aria-hidden="true" class="">×   </span><span class="sr-only">Close</span>                        
+                    <button type="button" id="btnCloseEditx" class="close" data-dismiss="modal">
+                        <span aria-hidden="true" class="">×   </span><span class="sr-only">Close</span>
                     </button>
                     <h4 class="modal-title text-center " id="H1">Editar Central</h4>
                 </div>
-                <div class="modal-body" id="edit-modal-body"></div>
+                <div class="modal-body" id="edit-modal-body">
+                    <form id="foma1">
+                       <asp:HiddenField ClientIDMode="Static" runat="server" ID="hdIdEdit"></asp:HiddenField>
+
+                    <div class="form-group col-xs-12 col-md-12">
+                        <label for="txtConvenio">Central</label>
+                        <asp:TextBox ClientIDMode="Static" runat="server" ID="txtConvenioEdit" name="txtConvenio" CssClass="form-control text-uppercase" MaxLength="6" ReadOnly="false"></asp:TextBox>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-12">
+                        <label for="txtDescripcion">Descripción</label>
+                        <asp:TextBox runat="server" ClientIDMode="Static" ID="txtDescripcionEdit" CssClass="form-control text-uppercase" MaxLength="49"></asp:TextBox>
+                    </div>
+                 </form>
+                </div>
 
                 <div class="clearfix"></div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="btnCloseEdit" >Cancelar</button>
-                    <button type="button" id="Aceptar" class="btn btn-success" data-dismiss="modal" >Actualizar</button>
-                    <button type="button" id="Eliminar" class="btn btn-danger" data-dismiss="modal" >Eliminar</button>
+                    <button type="button" class="btn btn-default" id="btnCloseEdit">Cancelar</button>
+                    <button type="button" id="Aceptar" class="btn btn-success" data-dismiss="modal">Actualizar</button>
                 </div>
 
                 <div class="clearfix"></div>
-                <div class="alert alert-success" role="alert" id="msgExito">
-                  
-                </div>
 
             </div>
         </div>
     </div>
-    <!-- end modal EDIT --->   
-    
+    <!-- end modal EDIT --->
+
     <!---- delete modal --->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -85,22 +208,33 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header btn-danger">
-                    <button type="button" id="btnCloseDeletex" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×   </span><span class="sr-only">Close</span>
+                    <button type="button" id="btnCloseDeletex" class="close" data-dismiss="modal">
+                        <span aria-hidden="true" class="">×   </span><span class="sr-only">Close</span>
 
                     </button>
-                        <h4 class="modal-title text-center " id="H2">¿Eliminar ésta Central?</h4>
+                    <h4 class="modal-title text-center " id="H2">¿Eliminar ésta Central?</h4>
 
                 </div>
-                <div class="modal-body" id="delete-modal-body"></div>
+                <div class="modal-body" id="delete-modal-body">
+                      <asp:HiddenField ClientIDMode="Static" runat="server" ID="hdIddelet"></asp:HiddenField>
+
+                    <div class="form-group col-xs-12 col-md-12">
+                        <label for="txtConvenio">Central</label>
+                        <asp:TextBox ClientIDMode="Static" runat="server" ID="txtConveniodelet" name="txtConveniodelet" CssClass="form-control text-uppercase" MaxLength="6" ReadOnly="true"></asp:TextBox>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-12">
+                        <label for="txtDescripcion">Descripción</label>
+                        <asp:TextBox runat="server" ClientIDMode="Static" ID="txtdescripciondelet" CssClass="form-control text-uppercase" MaxLength="49" ReadOnly="true"></asp:TextBox>
+                    </div>
+                </div>
                 <div class="clearfix"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="btnCloseDelete">Cancelar</button>
-                    <button type="button" id="btnDelete" class="btn btn-danger" data-dismiss="modal" >Eliminar</button>
+                    <button type="button" id="btnDelete" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
                 </div>
                 <div class="clearfix"></div>
-                <div class="alert alert-success" role="alert" id="msgdeletealter">
-                  
-                </div>
+<%--                <div class="alert alert-success" role="alert" id="msgdeletealter">
+                </div>--%>
             </div>
         </div>
     </div>
@@ -108,42 +242,60 @@
 
     <!--- New Central modal -->
     <div class="modal fade" id="NewCentralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header text-center"  style="    background-color: #A4BA08; color: white !important; text-align: center; ">
-                <button type="button"  id="btnCloseNewx" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="Central_add">Agregar Nueva Central</h4>
-              </div>
-              <div class="modal-body ">
-                <label for="NewCodeCentraltxt">Código</label>
-                <input type="text" class="form-control text-uppercase" id="NewCodeCentraltxt" maxlength="15" />
-              </div>
-              <div class="modal-body">
-                <label for="NewCentraltxt">Descripción</label>
-                <input type="text" class="form-control text-uppercase" id="NewCentraltxt"  maxlength="149" />
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseNew">Cerrar</button>
-                <a href="#" class="btn btn-success" id="btnAddCentral">Agregar</a>     
-              </div>
-              <div class="clearfix"></div>
-              <div class="alert alert-success" role="alert" id="msgErrNewCentral">
+                <div class="modal-header text-center" style="background-color: #A4BA08; color: white !important; text-align: center;">
+                    <button type="button" id="btnCloseNewx" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="Central_add">Agregar Nueva Central</h4>
+                </div>
+                <div class="modal-body ">
+                    <label for="NewCodeCentraltxt">Código</label>
+                    <input type="text" class="form-control text-uppercase" id="NewCodeCentraltxt" maxlength="15" />
+                </div>
+                <div class="modal-body">
+                    <label for="NewCentraltxt">Descripción</label>
+                    <input type="text" class="form-control text-uppercase" id="NewCentraltxt" maxlength="149" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseNew">Cerrar</button>
+                    <a href="#" class="btn btn-success" id="btnAddCentral">Agregar</a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="alert alert-success" role="alert" id="msgErrNewCentral">
+                </div>
             </div>
-          </div>
         </div>
     </div>
     <!--- end New modal -->
-   
-     <script type="text/javascript">
-         function limpiar() {
-             document.getElementById("NewCodeCentraltxt").value = "";
-             document.getElementById("NewCentraltxt").value = "";
-         }
+
+    <script type="text/javascript">
+
+
+        function mostrarModal(nombreModal) {
+            $("#" + nombreModal).modal({
+                show: true,
+                backdrop: 'static',
+                keyboard: false
+            });
+            $("#msgExito").hide();
+
+        }
+        function ocultarModal(nombreModal) {
+            $("#" + nombreModal).modal('hide');
+
+            $("#" + nombreModal).modal({
+                hide: true,
+            });
+        }
+        function limpiar() {
+            document.getElementById("NewCodeCentraltxt").value = "";
+            document.getElementById("NewCentraltxt").value = "";
+        }
         $("#msgExito").hide();
         $("#msgdeletealter").hide();
         $("#msgErrNewCentral").hide();
         //$('[data-toggle="tooltip"]').tooltip();
-        
+
         $(document).ready(function () {
             $("#btnCloseNew").click(function () {
                 //document.location.reload();
@@ -159,7 +311,7 @@
             });
 
             $('#myTable').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 6 });
-            
+
             $("#btnAddCentral").click(function () {
                 //var New_Central_val = $("#NewCentraltxt").val().trim();
                 var New_Central_val = $("#NewCentraltxt").val();
@@ -216,8 +368,7 @@
                         var sResp = r.d;
                         var aResp = sResp.split('-')
 
-                        if (aResp[0] == '1')
-                        {
+                        if (aResp[0] == '1') {
                             //$("#msgErrNewCentral").removeAttr("style");
                             //$("#msgErrNewCentral").html("<strong>" + aResp[1] + "</strong> .");
                             //$("#msgErrNewCentral").addClass("alert alert-success text-center");
@@ -232,8 +383,7 @@
                                 window.location.reload(1);
                             }, 4000);
                         }
-                        else
-                        {
+                        else {
                             //$("#msgErrNewCentral").html(aResp[1]);
                             //$("#msgErrNewCentral").addClass("alert alert-danger  text-center");
                             //$("#msgErrNewCentral").show();
@@ -273,8 +423,8 @@
             });
             $("#btnDelete").click(function () {
 
-                var IdCentral_delete = $("#IdCentral_delete").val();
-                var Central = $("#Descripción").val();
+                var IdCentral_delete = $("#hdIddelet").val();
+                var Central = $("#txtConveniodelet").val();
                 if ((!IdCentral_delete && IdCentral_delete.length == 0)) {
                     //$("#msgdeletealter").html("Falta agregar el ID Central");
                     //$("#msgdeletealter").addClass("alert alert-danger text-center");
@@ -313,9 +463,11 @@
                                 '<strong>' + r.d + '</strong>',
                                 'success'
                             );
+                            $("#delete").modal('hide');
+
                             setTimeout(function () {
-                                window.location.reload(1);
-                            }, 4000);
+                                location.reload("catCentrales.aspx");
+                            }, 2000);
                         },
                         error: function (r) {
 
@@ -341,17 +493,17 @@
                         }
                     });
 
-                    })
-               
+                })
+
                 return false;
             });
             $('#Aceptar').click(function () {
-                var IdCentral = $("#IdCentral").val();
-                var Central = $("#Descripción").val();
-               // Central = $.trim(Central);
-                var CodCentral = $("#Código").val();
+                var IdCentral = $("#hdIdEdit").val();
+                var Central = $("#txtDescripcionEdit").val();
+                // Central = $.trim(Central);
+                var CodCentral = $("#txtConvenioEdit").val();
 
-                if ((!IdCentral && IdCentral.length == 0)) {                    
+                if ((!IdCentral && IdCentral.length == 0)) {
                     //$("#msgExito").html("Falta agregar el ID Central");
                     //$("#msgExito").addClass("alert alert-danger text-center");
                     //$("#msgExito").show();
@@ -373,7 +525,7 @@
                     );
                     return false;
                 }
-                if ((!Central && Central.length == 0)) {                    
+                if ((!Central && Central.length == 0)) {
                     //$("#msgExito").html("Falta agregar la Central");
                     //$("#msgExito").addClass("alert alert-danger text-center");
                     //$("#msgExito").show();
@@ -397,28 +549,30 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (r) {
-                                               
+
                         var sResp = r.d;
                         var aResp = sResp.split('-')
 
-                        if (aResp[0] == '1')
-                        {
-                            //$("#msgExito").removeAttr("style");
-                            //$("#msgExito").html("<strong>" + aResp[1] + "</strong> .");
-                            //$("#msgExito").addClass("alert alert-success text-center");
-                            //$("#msgExito").removeClass("alert alert-danger text-center").addClass("alert alert-success text-center");
-                            //$("#msgExito").show();
+                        if (aResp[0] == '1') {
+                        
                             swal(
                                 '',
                                 '<strong>' + aResp[1] + '</strong>',
                                 'success'
                             );
-                            setTimeout(function () {
-                                //window.location.reload(1);
-                                document.location.reload();
-                            }, 4000);
+                           
+                                $("#edit").modal('hide');
+                               // llamarServidor();
+                               
+                                setTimeout(function () {
+                                    location.reload("catCentrales.aspx");
+
+                                }, 2000);
+                            //$("#edit").modal('hide');
+                            //$("#edit").modal('hide');                                                   
                         }
                         else {
+
                             //$("#msgExito").html(aResp[1]);
                             //$("#msgExito").addClass("alert alert-danger  text-center");
                             //$("#msgExito").show();
@@ -450,14 +604,17 @@
                             'error'
                         );
                     }
+
                 });
+                
                 return false;
             });
         });
-
+        
     </script>
-       
+
+
     <script src="js/Business/pagination.js" type="text/javascript"></script>
-    <script src="js/Business/Centrales.js" type="text/javascript"></script>
-         
+    <%--<script src="js/Business/Centrales.js" type="text/javascript"></script>--%>
+
 </asp:Content>

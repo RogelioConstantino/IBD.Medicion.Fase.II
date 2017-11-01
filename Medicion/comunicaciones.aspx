@@ -126,10 +126,16 @@
                         </div>
                     </div>
                     <%--se agrega una columna para el nuevo campo--%>
-                    <div class="form-group">
-                        <div class="form-group col-xs-12 col-md-4">                         
-                            <asp:CheckBox type="checkbox" ID="ChkPrelacion"  runat="server" />
+                     <div class="form-group">
+                                 <div class="form-group col-xs-12 col-md-10">
+		                            <label for="estatus">Observación Comunicacion-punto de carga</label>
+		                            <asp:TextBox TextMode="multiline" ToolTip="Observación MAX:999 caracteres" runat="server" class="form-control text-uppercase" rows="2" id="txtComentComunicacion" MaxLength="999"></asp:TextBox>                            
+		                        </div>
+                        <div class="form-group col-xs-12 col-md-2">  
+                            <br />
                             <label class="control-label">Prelación</label>
+
+                            <asp:CheckBox type="checkbox" ID="ChkPrelacion"  runat="server" />
                         </div>
                     </div>
                 </div>
@@ -586,7 +592,9 @@
                     </div>
                     <div class="col-xs-2">
                         <!-- Indicates a successful or positive action -->
-                        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" cssclass="btn btn-primary btn-sm btn-block" Text="Regresar" />
+
+             <a href="javascript:window.history.back();" class="btn btn-primary btn-sm btn-block">&laquo; Regresar</a>
+
                         <%--<asp:Button type="button" id="Button2"   runat="server" OnClick="btnBack_Click" class="btn btn-primary btn-sm btn-block" Text="Regresar"/>--%>
                     </div>
                 </div>

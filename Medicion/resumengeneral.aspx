@@ -29,7 +29,7 @@
                             <div class="form-group col-lg-12 col-md-3">
                                 <label class="control-label">Gestor de Medición</label>
                                 <div class="selectContainer">
-                                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" AutoPostBack="false">
+                                    <asp:DropDownList ID="cboGestorMedicion" runat="server" CssClass="form-control" OnSelectedIndexChanged="cboGestorMedicion_SelectedIndexChanged" AutoPostBack="true">
                                         <asp:ListItem Text="" Value=""></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
@@ -41,9 +41,9 @@
                                 <label class="control-label">Grupo</label>                        
                                 <asp:DropDownList ID="ddl_Grupos" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
-                                <cc1:CascadingDropDown ID="cddl_Grupos" TargetControlID="ddl_Grupos" PromptText="Seleccione un Grupo"
+                           <%--     <cc1:CascadingDropDown ID="cddl_Grupos" TargetControlID="ddl_Grupos" PromptText="Seleccione un Grupo"
                             PromptValue="" ServicePath="WebService/wsGroup.asmx" ServiceMethod="getGrupos" runat="server"
-                            Category="Id" LoadingText="Cargando..." /> 
+                            Category="Id" LoadingText="Cargando..." /> --%>
                             </div>
                         </div>
                                           
@@ -128,7 +128,7 @@
         <div id="Div1" class="table-responsive docs-table" runat="server" >
             <table id="mytable" class="table-responsive "
                 data-toggle="table" data-show-toggle="true" data-show-columns="true" 
-                data-search="true" data-striped="true" data-show-export="false" 
+                data-search="false" data-striped="true" data-show-export="false" 
                 data-page-list="[10, 25, 50, 100, ALL]">
                 <asp:PlaceHolder ID="DBDataPlaceHolder" runat="server"></asp:PlaceHolder>  
             </table>
@@ -167,19 +167,58 @@
 	        // Setup - add a text input to each footer cell
 	        $('#mytable tfoot th').each(function (i) {
 	            var title = $('#mytable thead th').eq($(this).index()).text();
-	            $(this).html('<input type="text" placeholder="Search ' + title + '" data-index="' + i + '" />');
+	            $(this).html('<input type="text" placeholder="Buscar' + title + '" data-index="' + i + '" />');
 	        });
 
-	        var table = $('#mytable').DataTable({
-	            scrollY: "500px",
-	            scrollX: true,
-	            scrollCollapse: true,
-	            paging: false,
-                sort:false,
-	            fixedColumns:   {
-	            leftColumns: 3
-	        }
-	        });
+	        //var table = $('#mytable').DataTable({
+	        //    scrollY: "500px",
+	        //    scrollX: true,
+	        //    scrollCollapse: true,
+	        //    paging: false,
+         //       sort: false,
+         //       search : false,
+                
+	        //    fixedColumns:   {
+         //           leftColumns: 3
+         //       }
+                 
+	        //});
+            $('#mytable').DataTable(
+                {
+                    scrollY: "500px",
+                    scrollX: true,
+                    scrollCollapse: true,
+                    paging: false,
+                    sort: false,
+                    search: false,
+
+                    fixedColumns: {
+                        leftColumns: 3
+                    },
+
+                    "language": {
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sProcessing": "<div class='preloader-wrapper small active'><div class='spinner-layer spinner-green-only'><div class='circle-clipper left'><div class='circle'></div></div><div class='gap-patch'><div class='circle'></div></div><div class='circle-clipper right'><div class='circle'></div></div></div></div>",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible",
+                        "sInfoEmpty": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        }
+                    },
+                    "paging": false,
+                    "ordering": false,
+                    "info": true
+                });
+
 
 	        // Filter event handler
 	        $(table.table().container()).on('keyup', 'tfoot input', function () {
@@ -187,8 +226,9 @@
                     .column($(this).data('index'))
                     .search(this.value)
                     .draw();
-	        });
 
+            });
+            
 	    });
 	   
 </script>
