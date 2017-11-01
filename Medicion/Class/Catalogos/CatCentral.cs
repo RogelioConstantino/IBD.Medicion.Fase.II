@@ -59,8 +59,6 @@ namespace Medicion.Class.Catalogos
                                              "    ,CONVERT(varchar, CAST(   isnull((select sum(carga)   " +
                                              "                          from Convenios co join PuntoCargaPorConvenio pcpc on pcpc.IdConvenio = co.IdConvenio and pcpc.Activo = 1  and co.IdEstatus = 2 " +
                                              "                          where co.Activo = 1  and  co.IdCentral = c.IdCentral),0)AS money), 1)  Carga  " +
-                                             "     , FechaCreacion [Fecha de Creación] " +
-                                             "    " +
                                              "  from Centrales c " + 
                                              "  where Activo = @Activo " +
                                              "Order By Central " );
@@ -68,6 +66,75 @@ namespace Medicion.Class.Catalogos
                 SqlParameter[] sqlParameters = new SqlParameter[1];
                 sqlParameters[0] = new SqlParameter("@Activo", SqlDbType.SmallInt);
                 sqlParameters[0].Value = Convert.ToString(Activo);
+                con.dbConnection();
+                AllCentral = con.executeSelectQuery(query, sqlParameters);
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "GetAllCentral";
+                clsError.LogWrite();
+            }
+            return AllCentral;
+        }
+
+        public DataTable CentralByCentral(int idcentral)
+        {
+            String FullName = string.Empty;
+            try
+            {
+                string query = string.Format("select IdCentral,CveCentral,Central from centrales where IdCentral = @IdCENtral");
+
+                SqlParameter[] sqlParameters = new SqlParameter[1];
+                sqlParameters[0] = new SqlParameter("@IdCENtral", SqlDbType.Int);
+                sqlParameters[0].Value = idcentral;
+                con.dbConnection();
+                AllCentral = con.executeSelectQuery(query, sqlParameters);
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "GetAllCentral";
+                clsError.LogWrite();
+            }
+            return AllCentral;
+        }
+
+        public DataTable ConveniosByIdCEntral(int IdCentral)
+        {
+            String FullName = string.Empty;
+            try
+            {
+                string query = string.Format("select c.IdConvenio, c.Convenio, count( b.IdPuntoCarga)[Num de Cargas], sum(b.Carga) [Carga total],ce.Descripcion [Estatus] from Convenios c join [PuntoCargaPorConvenio] b on c.IdConvenio = b.IdConvenio join conveniosEstatus ce on c.IdEstatus = ce.IdEstatus where c.IdCentral = @IdCentral and c.Activo = 1 group by c.IdConvenio, c.Convenio, ce.Descripcion");
+
+                SqlParameter[] sqlParameters = new SqlParameter[1];
+                sqlParameters[0] = new SqlParameter("@IdCentral", SqlDbType.Int);
+                sqlParameters[0].Value = IdCentral;
+                con.dbConnection();
+                AllCentral = con.executeSelectQuery(query, sqlParameters);
+            }
+            catch (Exception ex)
+            {
+                LogError.LogErrorMedicion clsError = new LogError.LogErrorMedicion();
+                clsError.logMessage = ex.ToString();
+                clsError.logModule = "GetAllCentral";
+                clsError.LogWrite();
+            }
+            return AllCentral;
+        }
+
+        public DataTable ConveniosByIdConvenio(int IdConvenio)
+        {
+            String FullName = string.Empty;
+            try
+            {
+                string query = string.Format(" select pc.rpu [RPU],pc.PuntoCarga [Punto de Carga],pc.DemandaContratada [Demanda Contratada] from   [PuntoCargaPorConvenio]  pcpc join PuntosCarga pc on pcpc.idPuntoCarga = pc.idPuntoCarga where IdConvenio = @IdConvenio ");
+
+                SqlParameter[] sqlParameters = new SqlParameter[1];
+                sqlParameters[0] = new SqlParameter("@IdConvenio", SqlDbType.Int);
+                sqlParameters[0].Value = IdConvenio;
                 con.dbConnection();
                 AllCentral = con.executeSelectQuery(query, sqlParameters);
             }

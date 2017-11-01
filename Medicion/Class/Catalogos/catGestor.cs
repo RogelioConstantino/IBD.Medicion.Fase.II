@@ -25,7 +25,7 @@ namespace Medicion.Class.Catalogos
                 //string query = string.Format("select Titulo, cfe.Division, cfe.Zona, Correo, Nombre, ApPaterno as [Apellido Paterno], ApMaterno as [Apellido Materno], TelTrabajo as [Tel. Trabajo], Extencion as Extension, Celular, cfe.FechaCreacion as Alta from ContactoCFE CFE inner join Zona Z on CFE.Zona = z.Zona where cfe.Activo = @Activo  and z.Activo= @Activo  Order By Nombre");
                 string query = string.Format("SELECT  IdGestor Id" +
                                             "       ,  r.IdGestorTipo, t.GestorTipo Tipo, g.IdGestorRol , r.GestorRol Rol" +
-                                            "       , NumeroEmpleado[Núm de Empleado],  g.cve Iniciales, Nombre + ' ' + ApPaterno + ' ' + ApMaterno as [Nombre Completo], Nombre, ApPaterno, ApMaterno, NumeroEmpleado , g.FechaCreacion, g.cve  " +
+                                            "       , NumeroEmpleado[Núm de Empleado],  g.cve Iniciales, upper(Nombre + ' ' + ApPaterno + ' ' + ApMaterno) as [Nombre Completo], Nombre, ApPaterno, ApMaterno, NumeroEmpleado , g.FechaCreacion, g.cve  " +
                                              "  FROM Gestores g join [GestorRoles] r on g.IdGestorRol = r.IdGestorRol   join[GestorTipos] t on t.IdGestorTipo = r.IdGestorTipo " +
                                              " WHERE g.Activo = @Activo   " +
                                              " ORDER BY Nombre + ' ' + ApPaterno + ' ' + ApMaterno ");

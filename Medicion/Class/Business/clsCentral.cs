@@ -22,6 +22,30 @@ namespace Medicion.Class.Business
 
             return dtAllG;
         }
+        public DataTable CentralBYIdCentral(int IdCentral)
+        {
+            Class.Catalogos.CatCentral clsCatCentral = new Class.Catalogos.CatCentral();
+            clsCatCentral.Activo = 1;
+            dtAllG = clsCatCentral.CentralByCentral(IdCentral);
+
+            return dtAllG;
+        }
+        public DataTable ConveniosByCentral(int idcentral)
+        {
+            Class.Catalogos.CatCentral clsCatCentral = new Class.Catalogos.CatCentral();
+            clsCatCentral.Activo = 1;
+            dtAllG = clsCatCentral.ConveniosByIdCEntral(idcentral);
+
+            return dtAllG;
+        }
+        public DataTable ConveniosByConvenio(int idcovenio)
+        {
+            Class.Catalogos.CatCentral clsCatCentral = new Class.Catalogos.CatCentral();
+            clsCatCentral.Activo = 1;
+            dtAllG = clsCatCentral.ConveniosByIdConvenio(idcovenio);
+
+            return dtAllG;
+        }
         public DataTable GetAllConvenioByCentral(string central)
         {
             DataTable dtAllG2;
