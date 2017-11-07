@@ -75,8 +75,8 @@
                                 <asp:FileUpload ID="FileUpload1" runat="server" accept=".xls, .xlsx" class="btn btn-success btnbrowser col-sm-10" />
                                 <asp:RegularExpressionValidator ID="regexValidator" runat="server"
                                     ControlToValidate="FileUpload1"
-                                    ErrorMessage="Sólo se permiten archivos .xlsx ó .xls"
-                                    ValidationExpression="(.*?)\.(xlsx|xls|XLSX|XLS)$">
+                                    ErrorMessage="Sólo se permiten archivos .xlsx"
+                                    ValidationExpression="(.*?)\.(xlsx|XLSX)$">
                                 </asp:RegularExpressionValidator>
                             </div>
                             <div class="col-sm-2">

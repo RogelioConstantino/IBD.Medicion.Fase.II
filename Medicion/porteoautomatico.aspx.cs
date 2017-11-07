@@ -15,7 +15,7 @@ using Medicion.Class.LogError;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.Script.Serialization;
-
+using ClosedXML.Excel;  
 namespace Medicion
 {
     public partial class porteoautomatico : System.Web.UI.Page
@@ -62,7 +62,7 @@ namespace Medicion
             {
 
             }
-            if ((String)Session["Rol"] != "1")
+            if ((String)Session["Rol"] != "4")
             {
                 pnlSuccessLoad.Visible = true;
                 pnlBrowseFile.Visible = false;
@@ -116,7 +116,8 @@ namespace Medicion
             clsError.logModule = "porteoatomatico";
             clsError.LogWrite();
 
-            DataTable dtRsponseImport2Grid = new DataTable();
+           DataTable dtRsponseImport2Grid = new DataTable();
+
             clsPorteo clsBusinessPorteo = new clsPorteo();
             StringBuilder strHtmlTablePorteo;
             if (IsPostBack)
@@ -142,6 +143,7 @@ namespace Medicion
                             clsError.LogWrite();
 
                             clsBusinessPorteo.strFileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+
                             if (!string.IsNullOrEmpty(clsBusinessPorteo.strFileName))
                             {
 
@@ -149,14 +151,94 @@ namespace Medicion
                                 clsError.logModule = "porteoatomatico-btnUpload_Click";
                                 clsError.LogWrite();
 
-                                clsBusinessPorteo.strExtension = Path.GetExtension(FileUpload1.PostedFile.FileName);
-                                //string nombreArchivo = FileUpload1.FileName;
-                                clsBusinessPorteo.strFilePath = Server.MapPath(clsBusinessPorteo.strFileName);
-                                //GridView1.Caption = FilePath;
-                                FileUpload1.SaveAs(clsBusinessPorteo.strFilePath);
-                                clsBusinessPorteo.strIsHDR = ExcelHasHeader.Yes;
-                                dtRsponseImport2Grid = clsBusinessPorteo.Import_To_Grid();
+                                //clsBusinessPorteo.strExtension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+                                ////string nombreArchivo = FileUpload1.FileName;
+                                //clsBusinessPorteo.strFilePath = Server.MapPath(clsBusinessPorteo.strFileName);
+                                ////GridView1.Caption = FilePath;
+                                //FileUpload1.SaveAs(clsBusinessPorteo.strFilePath);
+                                //clsBusinessPorteo.strIsHDR = ExcelHasHeader.Yes;                                                                                                                                                                                                                          dtRsponseImport2Grid = clsBusinessPorteo.Import_To_Grid();
                                 //Import_To_Grid(clsBusinessPorteo.strFilePath, clsBusinessPorteo.strFileName, "Yes");
+                                //Implementando closedXML--------------------------------------------------------------------------------
+                                string filePath = Server.MapPath("~/Files") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+                                FileUpload1.SaveAs(filePath);
+
+
+
+                                //Open the Excel file using ClosedXML.
+
+                                using (XLWorkbook workBook = new XLWorkbook(filePath))
+
+                                {
+
+                                    //Read the first Sheet from Excel file.
+
+                                    IXLWorksheet workSheet = workBook.Worksheet(1);
+
+
+
+                                    //Create a new DataTable.
+
+                               //   DataTable dt = new DataTable();
+
+
+                                    //Loop through the Worksheet rows.
+
+                                    bool firstRow = true;
+
+                                    foreach (IXLRow row in workSheet.Rows())
+
+                                    {
+
+                                        //Use the first row to add columns to DataTable.
+
+                                        if (firstRow)
+
+                                        {
+
+                                            foreach (IXLCell cell in row.Cells())
+
+                                            {
+
+                                                dtRsponseImport2Grid.Columns.Add(cell.Value.ToString());
+
+                                            }
+
+                                            firstRow = false;
+
+                                        }
+
+                                        else
+
+                                        {
+
+                                            //Add rows to DataTable.
+
+                                            dtRsponseImport2Grid.Rows.Add();
+
+                                            int i = 0;
+
+                                            foreach (IXLCell cell in row.Cells())
+
+                                            {
+
+                                                dtRsponseImport2Grid.Rows[dtRsponseImport2Grid.Rows.Count - 1][i] = cell.Value.ToString();
+
+                                                i++;
+
+                                            }
+
+                                        }
+
+
+                                    }
+
+                                }
+
+
+
+
+
+
                                 if (dtRsponseImport2Grid.Rows.Count > 0 && dtRsponseImport2Grid.Columns.Count == 16)
                                 {
 
@@ -213,6 +295,9 @@ namespace Medicion
                     clsError.logMessage = ex.ToString();
                     clsError.logModule = "btnUpload_Click";
                     clsError.LogWrite();
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string mensaje = serializer.Serialize(ex.Message);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "muestraError", "swal('Error  Detalle: " + mensaje + "');", true);
                 }
                 finally
                 {
@@ -354,82 +439,6 @@ namespace Medicion
             CargarDDLConvenio();
         }
         //guardar archivo en bd
-        protected  void save()
-        {
-            clsPorteoAutomatico clsShiping = new clsPorteoAutomatico();
-            string strEmail = (string)Session["email"];
-            string strIdUsuario = (string)Session["IdUsuario"];
-
-            try
-            {
-                DataTable dtResultado = new DataTable();
-                dtResultado = (DataTable)Session["dt_Sess_Porteo"];
-                StringBuilder strBullResultado = new StringBuilder();
-                clsShiping.dtResult = (DataTable)Session["dt_Sess_Porteo"];
-
-            
-                string strCentral = this.cmbCentral.Items[cmbCentral.SelectedIndex].Value;
-                clsShiping.strCentral = strCentral;
-                clsShiping.strIdUsuario = int.Parse(strIdUsuario);
-                strBullResultado = clsShiping.RPU();
-
-                //clsShiping.dtShiping = (DataTable)Session["dt_Sess_Porteo"];
-                //clsShiping.strRPUrepeated = clsShiping.RPU();
-                //if (clsShiping.strRPUrepeated.Length > 0)
-                if (strBullResultado.Length > 0)
-                {
-                    //ErrorMsg.InnerHtml = "<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Los siguientes RPU's ya están en la base de datos y no se importaron: <br></strong> " + clsShiping.strRPUrepeated + "</div>";
-
-                    pnlErrorLoad.Visible = true;
-                    pnlErrorLoadDiv.Visible = true;
-                    //pnlErrorLoadDiv.InnerHtml = "<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Los siguientes RPU's ya están en la base de datos y no se importaron: <br></strong> " + clsShiping.strRPUrepeated + "</div>";
-                    //pnlErrorLoadDiv.InnerHtml = "<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Los siguientes RPU's ya están en la base de datos y no se importaron: <br></strong> " + strBullResultado + "</div>";
-                    pnlErrorLoadDiv.InnerHtml = "<strong>Los siguientes registros contienen fallas  y no se importaron: <br></strong> " + strBullResultado + "";
-
-
-                    clsPorteo clsBusinessPorteo = new clsPorteo();
-                    clsBusinessPorteo.dtShiping = (DataTable)Session["dt_Sess_Porteo"];
-                    StringBuilder strHtmlTablePorteo = new StringBuilder();
-                    strHtmlTablePorteo = clsBusinessPorteo.CreateTableHTML();
-                    //CreateTableHTML(dtRsponseImport2Grid);
-                    DBDataPlaceHolder.Controls.Add(new Literal { Text = strHtmlTablePorteo.ToString() });
-
-                    //Button1.Enabled = false;
-                    btnCancel.Enabled = true;
-                    ScriptManager.RegisterStartupScript(this, GetType(), "muestraError", "swal('Cargado!', 'Su archivo se ha cargado correctamente.', 'success');", true);
-                }
-                else
-                {
-                    pnlMuestraDatos.Visible = false;
-                    pnlSuccessLoad.Visible = true;
-
-                    //Label1.Text = "convenio generado: " + strBullResultado;
-
-                    //Button1.Visible = false;
-                    btnCancel.Visible = false;
-
-                    btnRegresar.Enabled = true;
-                    btnRegresar.Visible = true;
-
-                    cmbCentral.SelectedValue = "";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "muestraError", "swal('Cargado!', 'Su archivo se ha cargado correctamente.', 'success');", true); }
-            }
-            catch (Exception ex)
-            {
-                clsError.logMessage = ex.ToString();
-                clsError.logModule = "btnUpload_Click";
-                clsError.LogWrite();
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string mensaje = serializer.Serialize(ex.Message);
-                ScriptManager.RegisterStartupScript(this, GetType(), "muestraError", "swal('Error  Detalle: " + mensaje + "');", true);
-
-            }
-            finally
-            {
-                Session["dt_Sess_Porteo"] = null;
-                clsShiping = null;
-            }
-        }
 
         protected void cmbConvenio_SelectedIndexChanged(object sender, EventArgs e)
         {

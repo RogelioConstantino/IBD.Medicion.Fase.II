@@ -128,7 +128,7 @@
                     <%--se agrega una columna para el nuevo campo--%>
                      <div class="form-group">
                                  <div class="form-group col-xs-12 col-md-10">
-		                            <label for="estatus">Observación Comunicacion-punto de carga</label>
+		                            <label for="estatus">Observación Comunicación-punto de carga</label>
 		                            <asp:TextBox TextMode="multiline" ToolTip="Observación MAX:999 caracteres" runat="server" class="form-control text-uppercase" rows="2" id="txtComentComunicacion" MaxLength="999"></asp:TextBox>                            
 		                        </div>
                         <div class="form-group col-xs-12 col-md-2">  

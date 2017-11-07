@@ -560,26 +560,29 @@
                 //}      
                 var ddlMed2 = document.getElementById("<%=cmbGMed2.ClientID%>");
                 var ValueMed2 = ddlMed2.options[ddlMed2.selectedIndex].value;
+
                 var ddlComer2 = document.getElementById("<%=cmbGComer2.ClientID%>");
                
                 var ValueComer2 = ddlComer2.options[ddlComer2.selectedIndex].value;
+                console.log(ValueMed2);
                 console.log(ValueComer2);
-                if (ValueMed2 = "--Seleccione un gestor--") {
-                    swal(
-                        '',
-                        'Debe seleccionar un gestor de medición',
-                        'warning'
-                    );
+
+                //if (ValueMed2 = "--Seleccione un gestor--") {
+                //    swal(
+                //        '',
+                //        'Debe seleccionar un gestor de medición',
+                //        'warning'
+                //    );
                     
-                    return false;
-                } else if (ValueComer2 = "--Seleccione un gestor--") {
-                    swal(
-                        '',
-                        'Debe seleccionar un gestor comercial',
-                        'warning'
-                    );
-                    return false;
-                }
+                //    return false;
+                //} else if (ValueComer2 = "--Seleccione un gestor--") {
+                //    swal(
+                //        '',
+                //        'Debe seleccionar un gestor comercial',
+                //        'warning'
+                //    );
+                //    return false;
+                //}
                 $.ajax({
                     type: "POST",
                     url: "./WebService/wsGroup.asmx/UpdateGroup",
